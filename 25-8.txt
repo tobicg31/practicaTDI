@@ -1,0 +1,16 @@
+clasificacion informacion:
+    segun rango valores:
+        continua: rango continuo
+        discreta: rango infinito
+    segun relacion entre simbolos:
+        sin memoria: el simbolo S es indenpendiente del resto
+        con memoria orden K: S es estadisticamente dependiente del resto
+
+H(S) -> valor medio de la informacion y el valor medio de la incertidumbre
+
+* 0 <= H(S) <= log(n)
+* H(S) sii alguna p=1 y el resto=0
+* H(S)=log(n) sii toda P(s) = 1/n
+* H(S) es una funcion continua y simetrica
+
+H(S^n) = n*H(S)
