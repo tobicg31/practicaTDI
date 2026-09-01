@@ -1,0 +1,14 @@
+viejo gaga
+q me importa 
+
+vector estacionado (? == ergodicos (todos los simbolos 
+pueden llegar a cualquier otro de forma directa o indirecta)
+matrix prob condicionales: P(a/b) probabilidad de a sabiendo b
+    ocurrio verticales
+    que va a ocurrir horziontales
+    divido por la suma de la columna
+V* = M. V*
+
+vector:
+    asumo distr uniforme: n=3 -> v=[0.3, 0.3, 0.3]
+

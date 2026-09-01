@@ -1,6 +1,6 @@
 import math
 
-def inf(p):
+def informacion(p):
     return math.log2(1/p)
 
 def probabilidades(largo, P):
@@ -8,10 +8,10 @@ def probabilidades(largo, P):
         prob = float(input("Ingrese una probabilidad: "))
         P.append(prob) 
 
-def listainformacion(P):
+def listaInformacion(P):
     I=[]
     for i in range(len(P)):
-        I.append(inf(P))
+        I.append(informacion(P[i]))
     return I
 
 

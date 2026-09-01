@@ -1,5 +1,5 @@
-import informacion
-import math
+from informacion import *
+from math import *
 import random
     
 def Entropia(P, I):
@@ -7,6 +7,12 @@ def Entropia(P, I):
     for i in range(len(P)):
         H += P[i-1] * I[i-1]
     return H
+
+def EntropiaEquiprobable(p):
+    return log2(p)
+
+def EntropiaFuenteBinaria(w):
+    return w*informacion(w) + (1-w)*informacion(1-w)
 
 
 """ingresa una cadena y devuelve el alfabeto y sus probabilidades"""
@@ -61,10 +67,8 @@ if __name__ == "__main__":
 
 
 
-'''
-def binH(w,nw):
-    return w*informacion.inf(w) + nw*informacion.inf(nw)
 
+'''
 def equisH(n):
     return math.log2(n)
 
