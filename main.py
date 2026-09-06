@@ -1,6 +1,7 @@
 from informacion import *
 from entropia import *
 from fuentes import *
+from markov import *
 
 if (__name__ == "__main__"):
 
@@ -48,3 +49,17 @@ if (__name__ == "__main__"):
     print(pro2)
     print(f"H(Sn)={Entropia(pro2,informacion2)} n*H(S)={Entropia(p,l)*2}")
     """
+    """
+    ej14
+    """
+    Matriz = []
+    A = [1/2, 1/2, 0]
+    B = [0, 1/3, 1/3]
+    C = [0, 0, 0]
+    Matriz.append(A)
+    Matriz.append(B)
+    Matriz.append(C)
+
+    calcularValorEstacionario(Matriz)
+
+
