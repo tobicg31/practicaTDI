@@ -2,58 +2,31 @@ from entropia import *
 from informacion import *
 from fuentes import *
 
-"""Recibe una fila de una matriz de transicion y su nro de columna y devuelve 
-si la columna tiene 0s en la mitad inferior correspondiente a la matriz inferior"""
-def estaTrianguladaFila(col, j):
-    flag = False
-    i = 0
-    nro = col[i]
+def multiplicoMatrizVector(matriz,v):
+    v1 =[]
+    for i in range(len(v)):
+        v1.append(0)
 
-    while(not(flag) and i < j):
-        flag = nro == 0
-        i +=1
+    for i in range(len(v)):
+        for k in range(len(matriz)):
+            v1[i] += matriz[i][k]*v[k]
+    return v1
 
-    return flag
-"""Devuelve si una matriz tiene 0s debajo de la diagonal para el GaussJordan"""
-def estaTrianguladaMatriz(matriz):
-    flag = False
-    i = 1
-    col = matriz[i]
+def restaVectores(V0,V1):
+    return [V0[i] - V1[i] for i in range(len(V0))]
 
-    while (not(flag) and i < len(matriz)):
-        flag = estaTrianguladaFila(col, i)
-        i+=1
-    
-    return flag
+def calcularValorEstacionario(matriz, tol):
+    V0 = []
+    for i in range(len(matriz)):
+        V0.append(1/len(matriz))
 
-"""intercambio las filas f1 y f2"""
-def cambioFilas(f1, f2):
-    faux = []
-    faux = f2
-    f2 = f1
-    f1 = faux
-    return f1,f2
+    while max(V0) > tol:
+        #V1 = multiplicoMatrizVector(matriz, V0)
+        V1 = V0*matriz
+        V0 = restaVectores(V0,V1)
+        
 
-"""hago el cambio f1 -> f1 + k*f2"""
-def combinacionLinFilas(f1,f2, k):
-    f2 = [x*k for x in f2] 
-    faux = []
-    for i in f1:
-        faux.append(f1[i]+f2[i])
-    return faux
-
-"""divide toda una fila por el pivote P"""
-def dividirPivote(fila,p):
-    return [x/p for x in fila]
-
-
-def calcularValorEstacionario(matriz):
-    V = []
-    
-    
-    
-    return V
-
+    return V0
 """
 1/2 1/3 0
 1/2 1/3 1

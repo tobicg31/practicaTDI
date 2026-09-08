@@ -53,13 +53,20 @@ if (__name__ == "__main__"):
     ej14
     """
     Matriz = []
-    A = [1/2, 1/2, 0]
-    B = [0, 1/3, 1/3]
-    C = [0, 0, 0]
+    A = [1/2, 1/3, 0]
+    B = [1/2, 1/3, 1]
+    C = [0, 1/3, 0]
     Matriz.append(A)
     Matriz.append(B)
     Matriz.append(C)
 
-    calcularValorEstacionario(Matriz)
+    print(calcularValorEstacionario(Matriz, 0.1))
 
 
+"""
+1/2 1/3 0
+1/2 1/3 1
+0   1/3 0
+
+1/3 1/2 1/6
+"""
