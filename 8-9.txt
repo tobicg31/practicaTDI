@@ -1,0 +1,24 @@
+sardinas-paterson:
+verifica si una codi es univoca
+genera sufijos para detectar ambiguedades
+se detiene con un conflicto o un ciclo seguro
+
+1. def conjunto inicial:
+    s1 = {conjunto palabras codigo}
+2. generacion conjuntos sufijos:
+    para cada par x en S1, y en S1
+        si x es prefijo de y, agrego el sufijo de y en s1
+3. finaliza:
+    si 
+
+ejemplo:
+C1 = {0, 01, 10}
+1) S1=C1
+2)  x=0 y=01 / x es prefijo de y S2{sufijo de y=1 (01-0)}
+    x=0 y=10 / no hay prefijo
+    y=01 x=10 / no hay prefijo
+    S2={1}
+    comparo S1 con S2
+    x=0 y=1 / no hay prefijo
+    x=01 y=1 / no hay prefijo
+    x=10 y=1/ y es prefijo de x, S3={0} -> tiene una palabra de C1, no es UD

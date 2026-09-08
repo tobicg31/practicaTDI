@@ -42,7 +42,7 @@ def probAcumulada(prob):
 """busco en la prob acumulada un valor en especifico y devuelvo el indice"""
 def buscoAcum(acum, valor):
     i=0
-    while (acum[i]<valor):
+    while (valor < acum[i]):
         i += 1
     return int(i-1)
 

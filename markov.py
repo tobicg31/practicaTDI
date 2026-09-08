@@ -1,6 +1,7 @@
 from entropia import *
 from informacion import *
 from fuentes import *
+from random import *
 
 
 """ multiplico una matriz por un vector"""
@@ -28,6 +29,64 @@ def calcularValorEstacionario(matriz, tol):
         V0 = V1  # ahora sí actualizamos la estimación
  
     return V0
+
+def cantApariciones(c, mensaje):
+    cant=0
+    for i in range(len(mensaje)):
+        cant += c==mensaje[i]
+    return cant
+
+"""Dado un mensaje y su alfabeto, devuelve la matriz de transicion del msg"""
+def calcularMatrizTransicion(mensaje,alf):
+    n = len(alf)
+    matriz = []
+    for i in range(n):
+        matriz.append([])
+        for j in range(n):
+            matriz[i].append(0)
+
+    for i in range(n): 
+        for k in range(n):
+            pos1 = 0
+            pos2 = 1
+            while (pos2 < len(mensaje)):
+                if ((mensaje[pos2]== mensaje[k]) and (mensaje[pos1]==mensaje[i]) ):
+                    matriz[k][i]+=1
+                pos1+=1
+                pos2+=1
+
+    for i in range(len(alf)):
+            for k in range(len(alf)):
+                matriz[k][i] /= cantApariciones(alf[i],mensaje)
+    return matriz
+
+def probAcumuladaColumna(prob,i):
+    acum = []
+    acum.append(prob[0][i])
+    for k in range(1,len(prob)):
+        acum.append(acum[k-1]+prob[k][i])
+    return acum
+
+def devuelvecadenadimensionN(n,alf,m):
+    msj= ""
+    msj+= alf[1] #vector estacionado
+    sigcol=1
+    for i in range(2,n):
+        col = [m[f][sigcol] for f in range(len(m))]
+        Acum = probAcumulada(col)
+        print(f"columna y acum: {col, Acum}")
+        r = random()
+        sigcol =buscoAcum(Acum,r)
+        msj += alf[sigcol]
+    return msj
+        
+        
+        
+
+
+"""
+acacbcbc
+"""
  
  
 
