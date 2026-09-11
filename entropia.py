@@ -14,6 +14,17 @@ def EntropiaEquiprobable(p):
 def EntropiaFuenteBinaria(w):
     return w*informacion(w) + (1-w)*informacion(1-w)
 
+def EntropiaMarkov(vec,m):
+    H = 0
+    n = len(m)
+    for i in range(n):
+        suma = 0
+        for j in range(n):
+            if m[j][i] >0:
+                suma += m[j][i]*log2(1/m[j][i])
+        H += vec[i] * suma
+    return H
+
 
 """ingresa una cadena y devuelve el alfabeto y sus probabilidades"""
 def devuelveAlfabetoyProbs(cadena): 

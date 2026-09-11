@@ -61,9 +61,12 @@ if (__name__ == "__main__"):
     print(calcularValorEstacionario(Matriz, 0.00000001))
     ej15:
     """
-    mensaje = "acacbcbcaaa"
+    mensaje = ";;,;,;:,,,.;,,.,,,::,;;;,:;.,,;:,,,:..;,;;.,;,,.:;"
     alf, prob = devuelveAlfabetoyProbs(mensaje)
     print(alf, prob)
     matriz = calcularMatrizTransicion(mensaje,alf)
     print(matriz)
     print(devuelvecadenadimensionN(8,alf,matriz))
+    print(esFuenteMemoriaNula(matriz, 0.001))
+    vec = calcularValorEstacionario(matriz, 0.001)
+    print(EntropiaMarkov(vec,matriz))

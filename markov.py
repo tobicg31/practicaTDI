@@ -78,7 +78,17 @@ def devuelvecadenadimensionN(n,alf,m):
         sigcol =buscoAcum(Acum,r)
         msj += alf[sigcol]
     return msj
-        
+
+def esFuenteMemoriaNula(matriz, tol):
+    filas = len(matriz)
+    columnas = len(matriz[0])
+    primera = [matriz[f][0] for f in range(filas)]
+ 
+    for c in range(1, columnas):
+        for f in range(filas):
+            if abs(matriz[f][c] - primera[f]) > tol:
+                return False
+    return True
         
         
 
