@@ -42,9 +42,9 @@ def probAcumulada(prob):
 """busco en la prob acumulada un valor en especifico y devuelvo el indice"""
 def buscoAcum(acum, valor):
     i=0
-    while (valor < acum[i]):
+    while valor >= acum[i]:
         i += 1
-    return int(i-1)
+    return i
 
 
 """dado un alfabeto y sus probabilidades, devuelve una cadena de longitud N en base a ese alfabeto y probs"""

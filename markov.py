@@ -50,14 +50,14 @@ def calcularMatrizTransicion(mensaje,alf):
             pos1 = 0
             pos2 = 1
             while (pos2 < len(mensaje)):
-                if ((mensaje[pos2]== mensaje[k]) and (mensaje[pos1]==mensaje[i]) ):
+                if ((mensaje[pos2]== alf[k]) and (mensaje[pos1]==alf[i]) ):
                     matriz[k][i]+=1
                 pos1+=1
                 pos2+=1
 
     for i in range(len(alf)):
             for k in range(len(alf)):
-                matriz[k][i] /= cantApariciones(alf[i],mensaje)
+                matriz[k][i] /= cantApariciones(alf[i],mensaje[:-1])
     return matriz
 
 def probAcumuladaColumna(prob,i):
@@ -71,10 +71,9 @@ def devuelvecadenadimensionN(n,alf,m):
     msj= ""
     msj+= alf[1] #vector estacionado
     sigcol=1
-    for i in range(2,n):
+    for i in range(1,n):
         col = [m[f][sigcol] for f in range(len(m))]
         Acum = probAcumulada(col)
-        print(f"columna y acum: {col, Acum}")
         r = random()
         sigcol =buscoAcum(Acum,r)
         msj += alf[sigcol]

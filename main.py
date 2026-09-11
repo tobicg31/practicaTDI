@@ -61,7 +61,7 @@ if (__name__ == "__main__"):
     print(calcularValorEstacionario(Matriz, 0.00000001))
     ej15:
     """
-    mensaje = "acacbcbc"
+    mensaje = "acacbcbcaaa"
     alf, prob = devuelveAlfabetoyProbs(mensaje)
     print(alf, prob)
     matriz = calcularMatrizTransicion(mensaje,alf)
