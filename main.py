@@ -77,3 +77,5 @@ if (__name__ == "__main__"):
     fuente = ["A","B","C","D"]
     codigo = ["010","101","000","111"]
     print(esNoSingular(codigo))
+    s = esUnivocamente(codigo)
+    print(s)
