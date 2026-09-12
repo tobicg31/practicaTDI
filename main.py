@@ -2,6 +2,7 @@ from informacion import *
 from entropia import *
 from fuentes import *
 from markov import *
+from codificacion import *
 
 if (__name__ == "__main__"):
 
@@ -60,7 +61,6 @@ if (__name__ == "__main__"):
         ]
     print(calcularValorEstacionario(Matriz, 0.00000001))
     ej15:
-    """
     mensaje = ";;,;,;:,,,.;,,.,,,::,;;;,:;.,,;:,,,:..;,;;.,;,,.:;"
     alf, prob = devuelveAlfabetoyProbs(mensaje)
     print(alf, prob)
@@ -70,3 +70,10 @@ if (__name__ == "__main__"):
     print(esFuenteMemoriaNula(matriz, 0.001))
     vec = calcularValorEstacionario(matriz, 0.001)
     print(EntropiaMarkov(vec,matriz))
+    """
+    """
+    guia 3, ej6
+    """
+    fuente = ["A","B","C","D"]
+    codigo = ["010","101","000","111"]
+    print(esNoSingular(codigo))
