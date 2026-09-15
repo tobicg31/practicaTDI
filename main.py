@@ -75,7 +75,7 @@ if (__name__ == "__main__"):
     guia 3, ej6
     """
     fuente = ["A","B","C","D"]
-    codigo = ["010","101","000","111"]
+    codigo = ["010S","101","000","111"]
     print(esNoSingular(codigo))
-    s = esUnivocamente(codigo)
+    s = es_univocamente_decodificable(codigo)
     print(s)
