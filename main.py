@@ -73,9 +73,16 @@ if (__name__ == "__main__"):
     """
     """
     guia 3, ej6
-    """
     fuente = ["A","B","C","D"]
-    codigo = ["010S","101","000","111"]
+    codigo = ["0","01","10"]
     print(esNoSingular(codigo))
-    s = es_univocamente_decodificable(codigo)
+    s = esUnivocamente(codigo)
     print(s)
+    print(esInstantaneo(codigo))
+    """
+    """
+    ej7
+    """
+    codigo1= ["011", "000","010","101","001","100"]
+    print(f"es noS:{esNoSingular(codigo1)} es Uni:{esUnivocamente(codigo1)}")
+    print(f"es instan: {esInstantaneo(codigo1)}")

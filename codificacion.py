@@ -10,9 +10,10 @@ def esNoSingular(codigo):
         j+=1
     return f
 
-def es_univocamente_decodificable(codigo):
+def esUnivocamente(codigo):
     """
     esto lo hizo Claude y creo que esta mal
+    ta bien lpm
     Determina si un codigo es univocamente decodificable aplicando
     el algoritmo de Sardinas-Patterson.
  
@@ -79,4 +80,17 @@ def es_univocamente_decodificable(codigo):
  
         conjuntos_vistos.append(conjunto_actual)
         conjunto_actual = calcular_siguiente_conjunto(conjunto_actual, C0)
- 
+
+
+def esInstantaneo(codigo):
+    f=False
+    i=0
+    while (i<len(codigo) and not(f)):
+        j=1
+        while (j<len(codigo) and not(f)):
+            if (len(codigo[i]) > len((codigo[j])) ):
+                f = codigo[i].startswith(codigo[j])
+            j+=1
+        i+=1
+
+    return not(f)
