@@ -81,8 +81,38 @@ if (__name__ == "__main__"):
     print(esInstantaneo(codigo))
     """
     """
-    ej7
-    """
-    codigo1= ["011", "000","010","101","001","100"]
+    ej10 y 12 
+    codigo1= [".,", ";",",,",":","...",",:;"]
     print(f"es noS:{esNoSingular(codigo1)} es Uni:{esUnivocamente(codigo1)}")
     print(f"es instan: {esInstantaneo(codigo1)}")
+    
+    alf = devuelveAlfabetoCodigo(codigo1)
+    print(f"el alfabeto es: {alf}")
+
+    p = [0.1, 0.5, 0.1, 0.2, 0.05, 0.05]
+    inform = informacionTecho(listaInformacion(p))
+    print(f"sus informaciones: {inform}")
+
+    longitudes = longitudesCodigo(codigo1)
+    print(f"sus longitudes: {longitudes}")
+
+    print(f"la sumatoria de kraft da: {sumatoriaKraft(codigo1, longitudes, len(alf))}")
+    print(f"la entropia es: {entropiaBaseR(p, len(alf))}")
+    print(f"la longitud media es: {longitudMedia(longitudes, p)}")
+    """
+
+    """
+    ej13:
+    p = [0.5, 0.25,0.125, 0.125]
+    print(informacionTecho(infoBaseR(p,3)))
+    """
+
+    codigo= ["1","21","31","32"]
+    p = [0.5, 0.25,0.125, 0.125]
+
+
+    print(esUnivocamente(codigo))
+    print(esInstantaneo(codigo))
+    print(informacionTecho(infoBaseR(p,3)))
+    print(longitudesCodigo(codigo))
+    print(esCompacto(codigo,p,3))

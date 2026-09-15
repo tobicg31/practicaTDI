@@ -1,3 +1,5 @@
+from math import *
+
 def esNoSingular(codigo):
     f = True
     i=0
@@ -94,3 +96,69 @@ def esInstantaneo(codigo):
         i+=1
 
     return not(f)
+
+"""
+ej9a:
+"""
+def devuelveAlfabetoCodigo(codigo): 
+    caracteres = ""
+
+    for i in range(len(codigo)):
+        for j in range(len(codigo[i])):
+            if not(caracteres.__contains__(codigo[i][j])):
+                caracteres += codigo[i][j]
+
+    return caracteres
+
+"""
+ej9b:
+"""
+def informacionTecho(info):
+    return [ ceil(info[i]) for i in range(len(info))]
+
+def longitudesCodigo(codigo):
+    return [ len(codigo[i]) for i in range(len(codigo))]
+
+"""
+ej9c:
+"""
+def sumatoriaKraft(codigo, long,r):
+    acum = 0
+    for i in range(len(codigo)):
+        acum += pow(r,-1*long[i])
+    return acum
+
+
+"""
+ej10a:
+"""
+def entropiaBaseR(p,r):
+    s=0
+    for i in range(len(p)):
+        s += p[i]*log(1/p[i],r)
+    return s
+
+"""
+ej10b:
+"""
+def longitudMedia(long, p):
+    acum=0
+    for i in range(len(long)):
+        acum += p[i]*long[i]
+    return acum
+
+def infoBaseR(p, r):
+    return [log(1/p[i],r) for i in range(len(p))]
+
+
+"""
+ej14:
+"""
+def esCompacto(codigo, p,r):
+    f = True
+    i=0
+    while( f and i < len(codigo)):
+        f = len(codigo[i]) <= ceil(log(1/p[i],r))
+        i += 1
+    return f
+
