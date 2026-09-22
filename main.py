@@ -105,14 +105,21 @@ if (__name__ == "__main__"):
     ej13:
     p = [0.5, 0.25,0.125, 0.125]
     print(informacionTecho(infoBaseR(p,3)))
-    """
 
-    codigo= ["1","21","31","32"]
-    p = [0.5, 0.25,0.125, 0.125]
+    codigo= ["/+","*","+-","-","*/"]
+    p = [0.15, 0.25, 0.05, 0.45, 0.1]
 
-
+    print(esNoSingular(codigo))
     print(esUnivocamente(codigo))
     print(esInstantaneo(codigo))
-    print(informacionTecho(infoBaseR(p,3)))
+    print(informacionTecho(infoBaseR(p,4)))
     print(longitudesCodigo(codigo))
-    print(esCompacto(codigo,p,3))
+    print(esCompacto(codigo,p,4))
+    r = len(devuelveAlfabetoCodigo(codigo))
+    print(entropiaBaseR(p,r))
+    """
+    codigo = ["00", "01", "10", "11"]
+    p = [0.4, 0.3, 0.2 ,0.1]
+
+    print(entropiaBaseR(p,2))
+    print(longitudMedia(longitudesCodigo(codigo),p))

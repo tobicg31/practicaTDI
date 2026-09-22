@@ -1,0 +1,16 @@
+en codigo instantaneo:
+H(S) <= L <= H(S)+1
+la long media es mas grande q la entropia
+ y mas chico que la entropia +1
+
+codigo compacto si: p =r^li
+    r cant de simbolos alfabeto
+    longitud de cada simbolo
+H(S^n) <= Ln <= H(S^n)+1 -> n*H(S) <= L <= n*H(S)+1 ->
+H(S) <= L/n <= H(S)+1/n
+
+mientras mas grande el n, mas se acerca 
+a la Entropia
+
+eficiencia (n rara) = Hr(S)/L
+reduncacia (R) = 1 - nrara
