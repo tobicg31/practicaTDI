@@ -8,7 +8,9 @@ from random import *
 #   columna j = simbolo de ORIGEN, fila i = simbolo de DESTINO
 #   cada COLUMNA suma 1 (matriz estocastica por columnas)
 # Los indices siguen el orden del alfabeto (alf ordenado).
-
+def devuelveProbabilidad(mensaje, alf):
+    """Devuelve las probabilidades de cada símbolo, en el mismo orden que alf"""
+    return [cantApariciones(simbolo, mensaje) / len(mensaje) for simbolo in alf]
 
 """multiplico una matriz por un vector: devuelve M * v (v de largo n)"""
 def multiplicoMatrizVector(matriz, v):

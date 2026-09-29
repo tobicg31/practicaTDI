@@ -43,9 +43,7 @@ def devuelveAlfabetoyProbs(cadena):
         probabilidades[i] = cont[i] / len(cadena)
     return alfabeto, probabilidades
 
-def devuelveProbabilidad(mensaje, alf):
-    """Devuelve las probabilidades de cada símbolo, en el mismo orden que alf"""
-    return [cantApariciones(simbolo, mensaje) / len(mensaje) for simbolo in alf]
+
 
 """calcula la probabilidad acumulada de una lista de probabilidades"""
 def probAcumulada(prob):
