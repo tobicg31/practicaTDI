@@ -117,9 +117,21 @@ if (__name__ == "__main__"):
     print(esCompacto(codigo,p,4))
     r = len(devuelveAlfabetoCodigo(codigo))
     print(entropiaBaseR(p,r))
-    """
     codigo = ["00", "01", "10", "11"]
     p = [0.4, 0.3, 0.2 ,0.1]
 
     print(entropiaBaseR(p,2))
     print(longitudMedia(longitudesCodigo(codigo),p))
+    """
+    mensaje = ".;.:.:.::;:,::.;:,::,;,:;.:.;.;;:,.::.:,.:.;:::::."
+    alf = [",", ".", ":", ";"]
+    prob = devuelveProbabilidad(mensaje, alf)
+    matriz = calcularMatrizTransicion(mensaje, alf)
+    print("probabilidades: ", prob)
+    print("alfabeto: ", alf)
+    for fila in matriz:
+        print([round(x, 2) for x in fila])
+    vec = calcularValorEstacionario(matriz, 0.000000000000000000001)
+    print([round(x, 2) for x in vec])
+    print(EntropiaMarkov(vec, matriz))
+    print(esFuenteMemoriaNula(matriz, 0.0000000000000001))
