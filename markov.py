@@ -47,25 +47,27 @@ def cantApariciones(c, mensaje):
 
 """Dado un mensaje y su alfabeto, devuelve la matriz de transicion del msg
    matriz[i][j] = P(alf[i] | alf[j]): columna = origen, fila = destino"""
-def calcularMatrizTransicion(mensaje, alf):
+def calcularMatrizTransicion(mensaje,alf):
     n = len(alf)
-    indice = {simbolo: pos for pos, simbolo in enumerate(alf)}
+    matriz = []
+    for i in range(n):
+        matriz.append([])
+        for j in range(n):
+            matriz[i].append(0)
 
-    # matriz[destino][origen] = cantidad de veces que alf[destino] sigue a alf[origen]
-    matriz = [[0] * n for _ in range(n)]
+    for i in range(n): 
+        for k in range(n):
+            pos1 = 0
+            pos2 = 1
+            while (pos2 < len(mensaje)):
+                if ((mensaje[pos2]== alf[k]) and (mensaje[pos1]==alf[i]) ):
+                    matriz[k][i]+=1
+                pos1+=1
+                pos2+=1
 
-    for pos in range(len(mensaje) - 1):
-        origen = indice[mensaje[pos]]
-        destino = indice[mensaje[pos + 1]]
-        matriz[destino][origen] += 1
-
-    # Normalizar cada columna (el total coincide con cantApariciones(alf[j], mensaje[:-1]))
-    for j in range(n):
-        total = sum(matriz[i][j] for i in range(n))
-        if total > 0:
-            for i in range(n):
-                matriz[i][j] /= total
-
+    for i in range(len(alf)):
+            for k in range(len(alf)):
+                matriz[k][i] /= cantApariciones(alf[i],mensaje[:-1])
     return matriz
 
 def probAcumuladaColumna(prob, i):

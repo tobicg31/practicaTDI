@@ -103,6 +103,7 @@ if (__name__ == "__main__"):
 
     """
     ej13:
+    """
     p = [0.5, 0.25,0.125, 0.125]
     print(informacionTecho(infoBaseR(p,3)))
 
@@ -122,7 +123,9 @@ if (__name__ == "__main__"):
 
     print(entropiaBaseR(p,2))
     print(longitudMedia(longitudesCodigo(codigo),p))
+
     """
+    parcialviejo 2025:
     mensaje = ".;.:.:.::;:,::.;:,::,;,:;.:.;.;;:,.::.:,.:.;:::::."
     alf = [",", ".", ":", ";"]
     prob = devuelveProbabilidad(mensaje, alf)
@@ -134,4 +137,5 @@ if (__name__ == "__main__"):
     vec = calcularValorEstacionario(matriz, 0.000000000000000000001)
     print([round(x, 2) for x in vec])
     print(EntropiaMarkov(vec, matriz))
-    print(esFuenteMemoriaNula(matriz, 0.0000000000000001))
+    print(esFuenteMemoriaNula(matriz, 0.0000000000000000001))
+    """
