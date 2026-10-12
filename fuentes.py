@@ -16,3 +16,14 @@ def ExtensionOrdenN(alfabeto, probabilidades, N):
                 ext.append(alfabeto[i] + str(extN1[j]))
                 prob.append(probabilidades[i] * probN1[j])
     return ext, prob
+
+def probabilidadesOrdenN(probabilidades, N):
+    if N == 1:
+        return list(probabilidades)
+
+    prob = []
+    prob1 = probabilidadesOrdenN(probabilidades, N - 1)
+    for i in range(len(probabilidades)):
+        for j in range(len(prob1)):
+            prob.append(probabilidades[i] * prob1[j])
+    return prob
