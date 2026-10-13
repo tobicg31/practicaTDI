@@ -1,6 +1,7 @@
 from entropia import *
 from markov import *
 from codificacion import *
+from fuentes import *
 
 
 def cumpleTeoremaShannon(prob, palabrasN, N):
