@@ -65,3 +65,114 @@ def algoritmo_huffman(alfabeto, probabilidades):
     
     # Retornar el diccionario con los símbolos codificados
     return generar_diccionario_huffman(raiz)
+
+""" def sumaProbs(prob, indice):
+    suma=0
+    for i in range(indice,len(prob)):
+        suma+=prob[i]
+    return suma
+
+def corteShannon(codigo):
+    i=1
+    flag=True
+    while flag and (i<len(codigo)):
+        flag = codigo[i] == codigo[i-1]
+        i+=1
+    return flag
+
+def algoritmoShannon(simbolos, prob):
+    sumaParcial=0
+    codigo= ["" for i in range(len(prob))]
+    dicc = dict(zip(simbolos, prob))
+    print(dicc)
+    print(codigo)
+    indice=0
+    while(not(corteShannon(codigo))):
+        totalProb = sumaProbs(prob, indice) 
+        while sumaParcial < totalProb/2:
+            sumaParcial += prob[indice]
+            indice+=1
+        for i in range(indice):
+            codigo[i]+= "1"
+        for i in range(indice,len(prob)):
+            codigo[i] += "0" """
+
+def algoritmoShannon(simbolos, prob):
+    # 1. Emparejar símbolos y probabilidades, y ordenarlos de mayor a menor
+    elementos = list(zip(simbolos, prob))
+    elementos.sort(key=lambda x: x[1], reverse=True)
+    
+    # Crear el diccionario inicial con cadenas vacías
+    dicc_codigos = {simbolo: "" for simbolo, _ in elementos}
+    
+    # Función recursiva interna para hacer las divisiones
+    def dividir(sub_elementos):
+        # Condición de corte: si queda 1 solo elemento en este grupo, terminamos
+        if len(sub_elementos) <= 1:
+            return
+        
+        # Calcular la probabilidad total de este subgrupo
+        total_prob = sum(p for _, p in sub_elementos)
+        
+        suma_parcial = 0
+        diferencia_min = float('inf')
+        indice_corte = 0
+        
+        # 2. Buscar el índice óptimo para cortar (lo más cerca del 50%)
+        for i in range(len(sub_elementos)):
+            suma_parcial += sub_elementos[i][1]
+            # Medimos qué tan lejos estamos de la mitad exacta
+            diferencia = abs((total_prob / 2) - suma_parcial)
+            
+            # Si la diferencia se achica, actualizamos el mejor corte
+            if diferencia < diferencia_min:
+                diferencia_min = diferencia
+                indice_corte = i
+            else:
+                # Como están ordenados de mayor a menor, si la diferencia 
+                # empieza a crecer, significa que ya pasamos el punto óptimo
+                break
+                
+        # 3. Asignar "0" a la primera mitad y "1" a la segunda
+        for i in range(indice_corte + 1):
+            simbolo = sub_elementos[i][0]
+            dicc_codigos[simbolo] += "1"
+            
+        for i in range(indice_corte + 1, len(sub_elementos)):
+            simbolo = sub_elementos[i][0]
+            dicc_codigos[simbolo] += "0"
+            
+        # 4. Llamar a la función recursivamente para cada mitad
+        dividir(sub_elementos[:indice_corte + 1])
+        dividir(sub_elementos[indice_corte + 1:])
+        
+    # Arrancar la recursividad con todos los elementos
+    dividir(elementos)
+    
+    return [dicc_codigos[s] for s in simbolos]
+
+def rendimientoYRedunancia(prob, cod):
+    entropia = entropiaBaseR(prob, len(devuelveAlfabetoCodigo(cod)))
+    long = longitudMedia(longitudesCodigo(cod), prob)
+    n = entropia/long
+    R = 1-n
+    return n, R
+
+def distanciaDeHamming(codigo):
+    distanciaMin=9999
+    for i in range(len(codigo)):                    #por cada simbolo
+        distPalabra=0
+        for j in range(len(codigo)):                #comparo con cada simbolo
+            if codigo[i] != codigo[j]:              
+                for k in range(len(codigo[i])):     #recorro caract a caract
+                    if codigo[i][k]!=codigo[j][k]:
+                        distPalabra+=1
+                if distPalabra < distanciaMin:
+                    distanciaMin = distPalabra
+    return distanciaMin
+
+def deteccionCorrecion(hamming):
+    det = hamming -1
+    corr = floor((hamming -1)/2)
+    return det, corr
+
