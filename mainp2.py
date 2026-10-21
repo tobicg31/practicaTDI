@@ -92,5 +92,5 @@ if (__name__ == "__main__"):
 
     """
     ej14:
-    """
     print(bin(arregloBytes("CASA")))
+    """

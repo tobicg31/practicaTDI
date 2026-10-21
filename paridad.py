@@ -87,4 +87,4 @@ def arregloBytes(cadena):
     ultimaFila = ultimaFila<<8*len(cadena)
     locura = ultimaFila|locura    
 
-    return locura
+    return bin(locura)
