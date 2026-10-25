@@ -69,8 +69,22 @@ if (__name__ == "__main__"):
 
     """
     ej7:
-    """
     mensaje= "CBCCBBBCAABBCBABCB"
     alf, prob = devuelveAlfabetoyProbs(mensaje)
-    huffman, shannon = huffmanYshannonString(prob)
-    print(mensajeCodificado(huffman))
+    huffman = algoritmo_huffman(alf, prob)
+    codHuff = [huffman[letra] for letra in alf]
+
+    codificado =codificar_mensaje_a_bytes(mensaje,alf, codHuff)
+    for byte in codificado:
+        print(bin(byte)[2:].zfill(8), end=" ")
+    print("\n")
+    print(decodificar_desde_bytes(alf, codHuff, codificado))
+    """
+
+    """
+    ej10:
+    """
+    mensaje = "UUOOOOAAAIEUUUU"
+    print(RLC(mensaje))
+
+    print(bytesRLC(RLC(mensaje)))

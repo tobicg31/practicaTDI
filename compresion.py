@@ -8,10 +8,29 @@ def huffmanYshannonString(probs):
     shanString = "".join(shan)
     return huffString, shanString
 
-def mensajeCodificado(codigo):
+#def mensajeCodificado(codigo):
     codificado = ""
     codificado += "".join(codigo)
     return arregloBytes(codificado)
+
+def codificar_mensaje_a_bytes(mensaje, alfabeto, codigos):
+    # 1. Armamos un diccionario para buscar rápido: 'A' -> '01', 'B' -> '10', etc.
+    dicc_codigos = {alfabeto[i]: codigos[i] for i in range(len(alfabeto))}
+    
+    # 2. Traducimos el mensaje original a una tira de unos y ceros
+    bits_str = "".join([dicc_codigos[letra] for letra in mensaje])
+    
+    # 3. Rellenamos con ceros al final para que la longitud total sea múltiplo de 8
+    bits_faltantes = (8 - len(bits_str) % 8) % 8
+    bits_str += '0' * bits_faltantes
+    
+    # 4. Convertimos de a 8 bits a enteros y lo guardamos en un bytearray
+    secuencia_bytes = bytearray()
+    for i in range(0, len(bits_str), 8):
+        byte_cadena = bits_str[i:i+8]
+        secuencia_bytes.append(int(byte_cadena, 2)) # int(..., 2) castea de binario a entero
+        
+    return secuencia_bytes
 
 def binario_a_matriz(binario, columnas):
     # Nos aseguramos de que el binario sea un string para poder iterarlo
@@ -29,7 +48,54 @@ def binario_a_matriz(binario, columnas):
         
     return matriz
 
-def mensajeDescodificado(bytes):
+def decodificar_desde_bytes(alfabeto, codificacion, secuencia_bytes):
+    # 1. Armamos un diccionario inverso para buscar rápidamente qué letra corresponde a cada código binario
+    dicc_inverso = {codificacion[i]: alfabeto[i] for i in range(len(alfabeto))}
     
+    # 2. Reconstruimos la cadena larga de ceros y unos a partir de la secuencia de bytes
+    # bin(byte) devuelve algo como '0b101', le sacamos el '0b' con [2:] y rellenamos con ceros a la izquierda hasta 8 bits (zfill)
+    cadena_bits = "".join([bin(byte)[2:].zfill(8) for byte in secuencia_bytes])
+    
+    # 3. Recorremos la cadena bit a bit para reconstruir el mensaje original
+    mensaje_original = ""
+    buffer_bits = ""
+    
+    for bit in cadena_bits:
+        buffer_bits += bit
+        
+        # Si la secuencia que venimos acumulando forma un código válido, guardamos la letra
+        if buffer_bits in dicc_inverso:
+            mensaje_original += dicc_inverso[buffer_bits]
+            buffer_bits = "" # Vaciamos el buffer para buscar la siguiente letra
+            
+    return mensaje_original
 
-    return recuperoMensaje(matrizParidad)
+def RLC(mensaje):
+    codificado = ""
+    act = mensaje[0]
+    cont=1
+    contadores = []
+    for i in range(1,len(mensaje)):
+        if mensaje[i] == act:
+            cont+=1
+        else:
+            codificado += act
+            contadores.append(cont)
+            act = mensaje[i]
+            cont=1
+    codificado += act
+    contadores.append(cont)
+
+    rlc = ""
+    for i in range(len(codificado)):
+        rlc += codificado[i]
+        rlc += str(contadores[i])
+    return rlc
+
+def bytesRLC(mensaje):
+    rlc = RLC(mensaje)
+    bytes = bytearray()
+    for i in range(len(rlc)):
+        
+        bytes.append()
+    return bytes
