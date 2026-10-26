@@ -94,8 +94,25 @@ def RLC(mensaje):
 
 def bytesRLC(mensaje):
     rlc = RLC(mensaje)
-    bytes = bytearray()
-    for i in range(len(rlc)):
+    secuencia_bytes = bytearray()
+    
+    i = 0
+    while i < len(rlc):
+        letra = rlc[i]
+        i += 1
         
-        bytes.append()
-    return bytes
+        numero_str = ""
+        while i < len(rlc) and rlc[i].isdigit():
+            numero_str += rlc[i]
+            i += 1
+            
+        secuencia_bytes.append(ord(letra))
+        secuencia_bytes.append(int(numero_str))
+        
+    return secuencia_bytes
+
+def tasaCompresion(mensaje, bytes):
+    largoMensaje= len(mensaje)
+    largoBytes = len(bytes)
+    print(largoMensaje, ":", largoBytes)
+    return largoMensaje / largoBytes

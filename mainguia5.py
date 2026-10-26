@@ -69,10 +69,11 @@ if (__name__ == "__main__"):
 
     """
     ej7:
-    mensaje= "CBCCBBBCAABBCBABCB"
+    mensaje= "CASA"
     alf, prob = devuelveAlfabetoyProbs(mensaje)
     huffman = algoritmo_huffman(alf, prob)
     codHuff = [huffman[letra] for letra in alf]
+    print(huffman)
 
     codificado =codificar_mensaje_a_bytes(mensaje,alf, codHuff)
     for byte in codificado:
@@ -80,11 +81,27 @@ if (__name__ == "__main__"):
     print("\n")
     print(decodificar_desde_bytes(alf, codHuff, codificado))
     """
+    """
+    ej8:
+    mensaje= "CASSACASCASCAC"
+    alf, probs = devuelveAlfabetoyProbs(mensaje)
+    huff = algoritmo_huffman(alf, probs)
+    codHuff = [huff[letra] for letra in alf]
+    bytes = codificar_mensaje_a_bytes(mensaje, alf, codHuff)
+    for byte in bytes:
+            print(bin(byte)[2:].zfill(8), end=" ")
+    print("\n")
+    print(tasaCompresion(mensaje, bytes))
+    """
 
     """
     ej10:
     """
-    mensaje = "UUOOOOAAAIEUUUU"
-    print(RLC(mensaje))
+    mensaje = "AAAABBBCCDAA"
+    rlc = RLC(mensaje)
+    bytes = bytesRLC(rlc)
+    print(rlc)
+    for byte in bytes:
+        print(bin(byte)[2:].zfill(8), end=" ")
 
-    print(bytesRLC(RLC(mensaje)))
+    print(tasaCompresion(mensaje, bytes))
