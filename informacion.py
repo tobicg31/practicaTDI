@@ -1,7 +1,10 @@
 import math
 
 def informacion(p):
-    return math.log2(1/p)
+    if p >0:
+        return math.log2(1/p)
+    else:
+        return 0
 
 def probabilidades(largo, P):
     for i in range(largo):
