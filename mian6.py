@@ -120,7 +120,31 @@ if (__name__ == "__main__"):
 
     """
     ej19
-    """
     a = [[0.7, 0.0, 0.3, 0.0 ], [0.2, 0.6, 0.0, 0.2 ]]
     b = [[0.9, 0.0, 0.1 ], [0.0, 1.0, 0.0], [0.1, 0.1, 0.8], [0.0, 0.5, 0.5 ]]
     print(matrizCompuesto(a, b))
+    """
+
+    """
+    ej21y22y23:
+    matriz = [[0.0, 0.5, 0.0, 0.5],
+              [0.8, 0.0, 0.2, 0.0],
+              [0.0, 0.5, 0.0, 0.5],
+              [0.8, 0.0, 0.2, 0.0]]
+
+    matriz2 = [
+        [0.4, 0.6, 0.0, 0.0 ],
+        [0.0, 0.0, 0.5, 0.5],
+        [0.0, 0.0, 0.7, 0.3]
+    ]
+    print(reducirMatriz(matriz))
+    print(reducirMatriz(matriz2))
+    """
+
+    """
+    ej26:
+    EH no entiendo
+    """
+    matriz = [[0.60, 0.40], [0.20, 0.80]]
+    capacidad, prob = estimar_capacidad_canal_binario(matriz, 0.1)
+    print(capacidad, prob)

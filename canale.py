@@ -175,6 +175,59 @@ def matrizCompuesto(a, b):
                 prod[i][j] += a[i][k] * b[k][j]
     return prod
 
+def verificoCombinacion(matriz, i, j):
+    constante = None
+    
+    for fila in matriz:
+        val_i = fila[i]
+        val_j = fila[j]
+        
+        # Validación de divisor nulo
+        if val_j == 0:
+            if val_i != 0:
+                return False  # No existe k tal que k * 0 = val_i (val_i != 0)
+            continue  # 0 y 0 son compatibles con cualquier constante
+        
+        ratio = val_i / val_j
+        
+        # Asignación o comparación de la razón de proporcionalidad
+        if constante is None:
+            constante = ratio
+        elif not math.isclose(ratio, constante, rel_tol=1e-7):
+            return False
+            
+    return True
+    
+def generar_matriz_T(matriz):
+    num_columnas = len(matriz[0])
+    grupos = []             # Guarda los índices de la columna representante de cada grupo
+    asignaciones = [-1] * num_columnas
+    
+    # Clasificar cada columna 'j' comparándola con los representantes existentes 'col_rep'
+    for j in range(num_columnas):
+        encontrado = False
+        for idx_grupo, col_rep in enumerate(grupos):
+            if verificoCombinacion(matriz, j, col_rep):
+                asignaciones[j] = idx_grupo
+                encontrado = True
+                break
+        if not encontrado:
+            grupos.append(j)
+            asignaciones[j] = len(grupos) - 1
+
+    # Construir la matriz T (dimensión: num_columnas x len(grupos))
+    T = [[0] * len(grupos) for _ in range(num_columnas)]
+    for j in range(num_columnas):
+        grupo_idx = asignaciones[j]
+        T[j][grupo_idx] = 1
+        
+    return T
+
+def reducirMatriz(matriz):
+    T = generar_matriz_T(matriz)
+    producto = matrizCompuesto(matriz, T)
+    return producto
+
 def capacidadDet(matriz):
     """
     capacidad si es det, log(nro salidas)
@@ -186,3 +239,49 @@ def capacidadSinRuido(matriz):
     capacidad si es sin ruido, log(nro entradas)
     """
     return log(len(matriz))
+
+def calcular_informacion_mutua(matriz, p):
+    """
+    Calcula la Información Mutua I(X;Y) para P(X) = [p, 1-p].
+    """
+    px = [p, 1.0 - p]
+    
+    # Probabilidad a posteriori P(Y)
+    py = [
+        px[0] * matriz[0][0] + px[1] * matriz[1][0],
+        px[0] * matriz[0][1] + px[1] * matriz[1][1]
+    ]
+    
+    informacion_mutua = 0.0
+    
+    for i in range(2):
+        for j in range(2):
+            p_xy = px[i] * matriz[i][j]  # Probabilidad conjunta P(x_i, y_j)
+            
+            # Evitar logaritmo de cero o división por cero
+            if p_xy > 0 and py[j] > 0 and matriz[i][j] > 0:
+                informacion_mutua += p_xy * math.log2(matriz[i][j] / py[j])
+                
+    return informacion_mutua
+
+def estimar_capacidad_canal_binario(matriz, paso):
+    """
+    Estima la capacidad del canal binario C = max I(X;Y) barriendo el rango [0, 1]
+    """
+    capacidad_estimada = -1.0
+    prob_optima = None
+    
+    # Cantidad de pasos discretos sin acumular error de punto flotante
+    pasos_totales = int(round(1.0 / paso))
+    
+    for k in range(pasos_totales + 1):
+        p = k * paso
+        p = min(max(p, 0.0), 1.0)  # Asegurar que permanezca en [0, 1]
+        
+        i_xy = calcular_informacion_mutua(matriz, p)
+        
+        if i_xy > capacidad_estimada:
+            capacidad_estimada = i_xy
+            prob_optima = [round(p, 6), round(1.0 - p, 6)]
+            
+    return capacidad_estimada, prob_optima
