@@ -142,9 +142,17 @@ if (__name__ == "__main__"):
     """
 
     """
-    ej26:
+    ej26y27:
     EH no entiendo
-    """
-    matriz = [[0.60, 0.40], [0.20, 0.80]]
-    capacidad, prob = estimar_capacidad_canal_binario(matriz, 0.1)
+    matriz = [[0.25, 0.75 ], [0.90, 0.10 ]]
+    capacidad, prob = capacidadBinario(matriz, 0.00001)
     print(capacidad, prob)
+    """
+
+
+    """
+    ej28y30 listo por dios:
+    """
+    matriz = [0.6, 0.4], [0.2, 0.8]
+
+    print(probError(matriz, [0.5, 0.5]))

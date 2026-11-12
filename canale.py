@@ -240,48 +240,39 @@ def capacidadSinRuido(matriz):
     """
     return log(len(matriz))
 
-def calcular_informacion_mutua(matriz, p):
-    """
-    Calcula la Información Mutua I(X;Y) para P(X) = [p, 1-p].
-    """
-    px = [p, 1.0 - p]
-    
-    # Probabilidad a posteriori P(Y)
-    py = [
-        px[0] * matriz[0][0] + px[1] * matriz[1][0],
-        px[0] * matriz[0][1] + px[1] * matriz[1][1]
-    ]
-    
-    informacion_mutua = 0.0
-    
-    for i in range(2):
-        for j in range(2):
-            p_xy = px[i] * matriz[i][j]  # Probabilidad conjunta P(x_i, y_j)
-            
-            # Evitar logaritmo de cero o división por cero
-            if p_xy > 0 and py[j] > 0 and matriz[i][j] > 0:
-                informacion_mutua += p_xy * math.log2(matriz[i][j] / py[j])
-                
-    return informacion_mutua
+def capacidadBinario(matriz, paso):
+    capacidad = 0
+    pActual = 0
 
-def estimar_capacidad_canal_binario(matriz, paso):
-    """
-    Estima la capacidad del canal binario C = max I(X;Y) barriendo el rango [0, 1]
-    """
-    capacidad_estimada = -1.0
-    prob_optima = None
-    
-    # Cantidad de pasos discretos sin acumular error de punto flotante
-    pasos_totales = int(round(1.0 / paso))
-    
-    for k in range(pasos_totales + 1):
-        p = k * paso
-        p = min(max(p, 0.0), 1.0)  # Asegurar que permanezca en [0, 1]
-        
-        i_xy = calcular_informacion_mutua(matriz, p)
-        
-        if i_xy > capacidad_estimada:
-            capacidad_estimada = i_xy
-            prob_optima = [round(p, 6), round(1.0 - p, 6)]
-            
-    return capacidad_estimada, prob_optima
+    cantPasos = round(1/paso)
+
+    for indicePaso in range(1, cantPasos):
+        pSimbolo = indicePaso*paso
+        priori = [pSimbolo, 1-pSimbolo]
+
+        salida = probSalida(matriz, priori)
+        Ha = entropiaPriori(priori) #ENTROPIA FUENTE
+        Hb = entropiaPriori(salida) #ENTROPIA SALIDA
+
+        Hab = entropiaPosteriori(priori, matriz) #ENTROPIA POSTERIORI
+        HaB = equivocacion(salida, Hab) #EQUIVOCACION 
+        Hba = perdida(HaB, Ha, Hb) #PERDIDA
+
+        Iab = informacionMutua(Hb, Hba) #INFORMACION MUTUA
+        if Iab > capacidad:
+            capacidad = Iab
+            pActual = pSimbolo
+    return capacidad, pActual
+
+def probError(matriz, priori):
+    Pe = 0
+
+    for i in range(len(matriz[0])):
+        min = 9
+        jMin = 0
+        for j in range(len(matriz)):
+            if matriz[j][i] < min:
+                min=matriz[j][i]
+                jMin = j
+        Pe += min*priori[jMin]
+    return Pe
