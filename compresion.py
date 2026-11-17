@@ -114,5 +114,5 @@ def bytesRLC(mensaje):
 def tasaCompresion(mensaje, bytes):
     largoMensaje= len(mensaje)
     largoBytes = len(bytes)
-    print(largoMensaje, ":", largoBytes)
+    print("\n",largoMensaje, ":", largoBytes)
     return largoMensaje / largoBytes
