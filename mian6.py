@@ -120,7 +120,39 @@ if (__name__ == "__main__"):
 
     """
     ej19
-    """
     a = [[0.7, 0.0, 0.3, 0.0 ], [0.2, 0.6, 0.0, 0.2 ]]
     b = [[0.9, 0.0, 0.1 ], [0.0, 1.0, 0.0], [0.1, 0.1, 0.8], [0.0, 0.5, 0.5 ]]
     print(matrizCompuesto(a, b))
+    """
+
+    """
+    ej21y22y23:
+    matriz = [[0.0, 0.5, 0.0, 0.5],
+              [0.8, 0.0, 0.2, 0.0],
+              [0.0, 0.5, 0.0, 0.5],
+              [0.8, 0.0, 0.2, 0.0]]
+
+    matriz2 = [
+        [0.4, 0.6, 0.0, 0.0 ],
+        [0.0, 0.0, 0.5, 0.5],
+        [0.0, 0.0, 0.7, 0.3]
+    ]
+    print(reducirMatriz(matriz))
+    print(reducirMatriz(matriz2))
+    """
+
+    """
+    ej26y27:
+    EH no entiendo
+    matriz = [[0.25, 0.75 ], [0.90, 0.10 ]]
+    capacidad, prob = capacidadBinario(matriz, 0.00001)
+    print(capacidad, prob)
+    """
+
+
+    """
+    ej28y30 listo por dios:
+    """
+    matriz = [0.6, 0.4], [0.2, 0.8]
+
+    print(probError(matriz, [0.5, 0.5]))

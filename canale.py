@@ -175,6 +175,59 @@ def matrizCompuesto(a, b):
                 prod[i][j] += a[i][k] * b[k][j]
     return prod
 
+def verificoCombinacion(matriz, i, j):
+    constante = None
+    
+    for fila in matriz:
+        val_i = fila[i]
+        val_j = fila[j]
+        
+        # Validación de divisor nulo
+        if val_j == 0:
+            if val_i != 0:
+                return False  # No existe k tal que k * 0 = val_i (val_i != 0)
+            continue  # 0 y 0 son compatibles con cualquier constante
+        
+        ratio = val_i / val_j
+        
+        # Asignación o comparación de la razón de proporcionalidad
+        if constante is None:
+            constante = ratio
+        elif not math.isclose(ratio, constante, rel_tol=1e-7):
+            return False
+            
+    return True
+    
+def generar_matriz_T(matriz):
+    num_columnas = len(matriz[0])
+    grupos = []             # Guarda los índices de la columna representante de cada grupo
+    asignaciones = [-1] * num_columnas
+    
+    # Clasificar cada columna 'j' comparándola con los representantes existentes 'col_rep'
+    for j in range(num_columnas):
+        encontrado = False
+        for idx_grupo, col_rep in enumerate(grupos):
+            if verificoCombinacion(matriz, j, col_rep):
+                asignaciones[j] = idx_grupo
+                encontrado = True
+                break
+        if not encontrado:
+            grupos.append(j)
+            asignaciones[j] = len(grupos) - 1
+
+    # Construir la matriz T (dimensión: num_columnas x len(grupos))
+    T = [[0] * len(grupos) for _ in range(num_columnas)]
+    for j in range(num_columnas):
+        grupo_idx = asignaciones[j]
+        T[j][grupo_idx] = 1
+        
+    return T
+
+def reducirMatriz(matriz):
+    T = generar_matriz_T(matriz)
+    producto = matrizCompuesto(matriz, T)
+    return producto
+
 def capacidadDet(matriz):
     """
     capacidad si es det, log(nro salidas)
@@ -186,3 +239,40 @@ def capacidadSinRuido(matriz):
     capacidad si es sin ruido, log(nro entradas)
     """
     return log(len(matriz))
+
+def capacidadBinario(matriz, paso):
+    capacidad = 0
+    pActual = 0
+
+    cantPasos = round(1/paso)
+
+    for indicePaso in range(1, cantPasos):
+        pSimbolo = indicePaso*paso
+        priori = [pSimbolo, 1-pSimbolo]
+
+        salida = probSalida(matriz, priori)
+        Ha = entropiaPriori(priori) #ENTROPIA FUENTE
+        Hb = entropiaPriori(salida) #ENTROPIA SALIDA
+
+        Hab = entropiaPosteriori(priori, matriz) #ENTROPIA POSTERIORI
+        HaB = equivocacion(salida, Hab) #EQUIVOCACION 
+        Hba = perdida(HaB, Ha, Hb) #PERDIDA
+
+        Iab = informacionMutua(Hb, Hba) #INFORMACION MUTUA
+        if Iab > capacidad:
+            capacidad = Iab
+            pActual = pSimbolo
+    return capacidad, pActual
+
+def probError(matriz, priori):
+    Pe = 0
+
+    for i in range(len(matriz[0])):
+        min = 9
+        jMin = 0
+        for j in range(len(matriz)):
+            if matriz[j][i] < min:
+                min=matriz[j][i]
+                jMin = j
+        Pe += min*priori[jMin]
+    return Pe
